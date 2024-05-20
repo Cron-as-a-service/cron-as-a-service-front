@@ -1,0 +1,49 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/npm",
+    "@semantic-release/github",
+    "@semantic-release/git"
+  ],
+  "repositoryUrl": "https://github.com/yourusername/yourrepository",
+  "preset": "angular",
+  "tagFormat": "${version}",
+  "release": {
+    "branches": ["main", {"name": "beta", "prerelease": true}, {"name": "next", "prerelease": true}]
+  },
+  "verifyConditions": [
+    "@semantic-release/changelog",
+    "@semantic-release/github",
+    "@semantic-release/git",
+    "@semantic-release/npm"
+  ],
+  "prepare": [
+    "@semantic-release/changelog",
+    {
+      "path": "@semantic-release/npm",
+      "npmPublish": false
+    },
+    {
+      "path": "@semantic-release/git",
+      "assets": ["package.json", "CHANGELOG.md"],
+      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }
+  ],
+  "publish": [
+    "@semantic-release/github",
+    "@semantic-release/npm"
+  ],
+  "success": [
+    {
+      "path": "@semantic-release/github",
+      "assets": ["dist/**/*.{js,css}"]
+    }
+  ],
+  "fail": [
+    "@semantic-release/github"
+  ],
+  "npmPublish": false
+}
