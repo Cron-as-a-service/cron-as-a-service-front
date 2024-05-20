@@ -1,0 +1,8 @@
+.rowSelected {
+    background-color: var(--mantine-color-blue-light);
+}
+
+.crontable {
+    padding-top: var(--mantine-spacing-md);
+    background-color: red;
+}
