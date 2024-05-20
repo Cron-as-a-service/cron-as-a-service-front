@@ -1,5 +1,5 @@
 function getEnvVariable(key: string): string {
-    const value = import.meta.env[key];
+    const value = import.meta.env[key] || window.env[key as keyof typeof window.env];
     if (!value) {
         throw new Error(`Environment variable ${key} is not defined`);
     }
