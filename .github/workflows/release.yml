@@ -15,7 +15,7 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
     env:
-      IMAGE_NAME: cron-as-a-service-api
+      IMAGE_NAME: cron-as-a-service-front
     steps:
       - name: checkout
         uses: actions/checkout@v4
