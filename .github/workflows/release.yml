@@ -26,6 +26,12 @@ jobs:
       - name: install semantic exec
         run: npm install @semantic-release/exec -D
 
+      - name: Semantic Release github
+        id: semantic-release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.CAAS_GITHUB_TOKEN}}
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -38,12 +44,6 @@ jobs:
           registry: ${{ secrets.NEXUS_CONTAINER_REGISTRY_URL }}
           username: ${{ secrets.NEXUS_CONTAINER_REGISTRY_USER }}
           password: ${{ secrets.NEXUS_CONTAINER_REGISTRY_PASSWORD }}
-
-      - name: Semantic Release github
-        id: semantic-release
-        uses: cycjimmy/semantic-release-action@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.CAAS_GITHUB_TOKEN}}
 
       - name: Build and push
         uses: docker/build-push-action@v5
