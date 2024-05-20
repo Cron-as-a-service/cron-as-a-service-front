@@ -13,7 +13,10 @@ RUN npm run build
 FROM nginx:stable-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 # Copy the entrypoint script
+# Copy the entrypoint script
 COPY entrypoint.sh /entrypoint.sh
+# Ensure the entrypoint script has execute permissions
+RUN chmod +x /entrypoint.sh
 
 # Set the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
