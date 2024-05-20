@@ -1,32 +1,17 @@
-# Étape 1 : Construction de l'application
-FROM node:18 AS build
-
-# Répertoire de travail dans le conteneur
+# build environment
+FROM node:18-alpine as build
 WORKDIR /app
-
-# Copier les fichiers de package et installer les dépendances
-COPY package.json package-lock.json ./
-
-# Installer les dépendances
-RUN npm install
-
-# Copier le reste des fichiers de l'application
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm ci --silent
+RUN npm install react-scripts@3.4.1 -g --silent
 COPY . ./
-
-# Construire l'application
 RUN npm run build
 
-# Vérifier le contenu du répertoire de build
-RUN ls -la /app/build
-
-# Étape 2 : Servir l'application avec nginx
-FROM nginx:alpine
-
-# Copier les fichiers de build dans le répertoire nginx
+# production environment
+FROM nginx:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Exposer le port 80
+COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
-
-# Démarrer nginx
 CMD ["nginx", "-g", "daemon off;"]
