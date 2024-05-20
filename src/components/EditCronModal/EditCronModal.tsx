@@ -114,7 +114,7 @@ export function EditCronModal({ task, opened, onClose }: EditCronModalProps) {
         };
 
         axios.put(`${config.apiUrl}/task/${task.id}`, body)
-            .then((response) => {
+            .then(() => {
                 notifications.update({
                     id,
                     color: 'teal',
