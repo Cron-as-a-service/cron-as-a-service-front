@@ -12,5 +12,14 @@ RUN npm run build
 # production environment
 FROM nginx:stable-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
+# Copy the entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
+
+# Expose port 80
 EXPOSE 80
+
+# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
