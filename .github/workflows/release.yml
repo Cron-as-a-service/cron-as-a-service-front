@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_and_push:
-    name: 🐳 Build & push image
+    name: 🐳 Build & push Docker image
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
