@@ -12,6 +12,7 @@ RUN npm run build
 # production environment
 FROM nginx:stable-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 # Copy the entrypoint script
 # Copy the entrypoint script
 COPY entrypoint.sh /entrypoint.sh
