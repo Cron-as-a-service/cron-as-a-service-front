@@ -50,7 +50,7 @@ export function HeaderMegaMenu() {
     const { loginWithRedirect, isAuthenticated, user } = useAuth0();
 
     useEffect(() => {
-        if(!user?.email_verified){
+        if(user && !user?.email_verified){
             notifications.update({
                 color: 'red',
                 title: 'Please verify your mail',
@@ -60,7 +60,7 @@ export function HeaderMegaMenu() {
                 autoClose: 8000,
             });
         }
-    }, [user?.email_verified]); // Tableau de dépendances vide
+    }, [user?.email_verified]);
 
     const links = mockdata.map((item) => (
         <UnstyledButton className={classes.subLink} key={item.title} onClick={() => window.open(item.link, '_blank')}>

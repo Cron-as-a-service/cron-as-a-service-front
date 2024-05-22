@@ -93,7 +93,7 @@ export function TreatmentsModal({ taskId, opened, onClose }: TreatmentsModalProp
                 )}
             </ScrollArea>
             <Space h="md" />
-            <Group position="right">
+            <Group>
                 <Button onClick={onClose}>Close</Button>
             </Group>
         </Modal>
