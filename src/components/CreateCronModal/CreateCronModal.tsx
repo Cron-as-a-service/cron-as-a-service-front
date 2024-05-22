@@ -187,13 +187,13 @@ export function CreateCronModal({opened, onClose}: CreateCronModalProps) {
                                     {...form.getInputProps('treatment')}
                                     withAsterisk>
                                     <Group>
-                                        {form.values.httpMethod == 'GET' && <Tooltip label="Checkbox with tooltip 1">
+                                        {form.values.httpMethod == 'GET' && <Tooltip label="Make a differential since last get">
                                             <Radio
                                                 value="differential"
                                                 label="Differential"
                                             />
                                         </Tooltip>}
-                                        <Tooltip label="Checkbox with tooltip 2">
+                                        <Tooltip label="Just call url with specified method">
                                             <Radio
                                                 value="none"
                                                 label="None"
@@ -216,9 +216,9 @@ export function CreateCronModal({opened, onClose}: CreateCronModalProps) {
                                 {...form.getInputProps('diffType')}
                                 withAsterisk>
                                 <Group>
-                                    <RadioCard label="New" description="Select only new objects" name="new" onClick={() => handleRadioChange('diffType', 'new')}/>
-                                    <RadioCard label="Delete" description="Select only delete objects" name="delete" onClick={() => handleRadioChange('diffType', 'delete')}/>
-                                    <RadioCard label="Update" description="Select only update object" name="update" onClick={() => handleRadioChange('diffType', 'update')}/>
+                                    <RadioCard label="New" description="Return only new objects" name="new" onClick={() => handleRadioChange('diffType', 'new')}/>
+                                    <RadioCard label="Delete" description="Return only delete objects" name="delete" onClick={() => handleRadioChange('diffType', 'delete')}/>
+                                    <RadioCard label="Update" description="Return only update object" name="update" onClick={() => handleRadioChange('diffType', 'update')}/>
                                     {form.values.diffType == 'update' &&
                                         <Center>
                                             {attributes.length == 0 ? <Button

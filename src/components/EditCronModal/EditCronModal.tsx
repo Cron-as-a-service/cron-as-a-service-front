@@ -189,11 +189,11 @@ export function EditCronModal({ task, opened, onClose }: EditCronModalProps) {
                     >
                         <Group>
                             {form.values.httpMethod === 'GET' && (
-                                <Tooltip label="Checkbox with tooltip 1">
+                                <Tooltip label="Make a differential since last get">
                                     <Radio value="differential" label="Differential" />
                                 </Tooltip>
                             )}
-                            <Tooltip label="Checkbox with tooltip 2">
+                            <Tooltip label="Just call url with specified method">
                                 <Radio value="none" label="None" />
                             </Tooltip>
                         </Group>

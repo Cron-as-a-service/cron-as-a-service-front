@@ -15,7 +15,16 @@ import {
 import classes from './TableSelection.module.css';
 import { ButtonMenu } from '../ButtonMenu/ButtonMenu.tsx';
 import { DropdownItem } from '../interfaces/DropdownItem.tsx';
-import { IconCheck, IconClockRecord, IconCode, IconEdit, IconFileText, IconTrash, IconX } from '@tabler/icons-react';
+import {
+    IconCheck,
+    IconClockRecord,
+    IconCode,
+    IconEdit,
+    IconFileText,
+    IconPlayerPlay,
+    IconTrash,
+    IconX
+} from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 import { CreateCronModal } from '../CreateCronModal/CreateCronModal.tsx';
 import axios from 'axios';
@@ -115,6 +124,30 @@ export function TableSelection() {
             });
     };
 
+    const handleRunTask = (id: string) => {
+        axios.post(`${config.apiUrl}/task/${id}/run`)
+            .then(() => {
+                notifications.update({
+                    color: 'teal',
+                    title: 'Cron was executed',
+                    message: 'Task has been run successfully',
+                    icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
+                    loading: false,
+                    autoClose: 8000,
+                });
+            })
+            .catch((error) => {
+                notifications.update({
+                    color: 'red',
+                    title: 'Cron wasn\'t executed',
+                    message: `Something went wrong, ${error.message}`,
+                    icon: <IconX style={{ width: rem(18), height: rem(18) }} />,
+                    loading: false,
+                    autoClose: 6000,
+                });
+            });
+    };
+
     const theme = useMantineTheme();
     const creationButtons: DropdownItem[] = [
         {
@@ -162,9 +195,14 @@ export function TableSelection() {
                         <ActionIcon variant="filled" color="blue" aria-label="Logs" onClick={() => handleViewLogs(item.id)}>
                             <IconFileText style={{ width: '70%', height: '70%' }} stroke={1.5} />
                         </ActionIcon>
+                        {item.function == 'differential' && <><Space w="sm"/><ActionIcon variant="filled" color="green"
+                                                                                         aria-label="Treatments"
+                                                                                         onClick={() => handleViewTreatments(item.id)}>
+                            <IconCode style={{width: '70%', height: '70%'}} stroke={1.5}/>
+                        </ActionIcon></>}
                         <Space w="sm" />
-                        <ActionIcon variant="filled" color="green" aria-label="Treatments" onClick={() => handleViewTreatments(item.id)}>
-                            <IconCode style={{ width: '70%', height: '70%' }} stroke={1.5} />
+                        <ActionIcon variant="filled" color="teal" aria-label="Run" onClick={() => handleRunTask(item.id)}>
+                            <IconPlayerPlay style={{ width: '70%', height: '70%' }} stroke={1.5} />
                         </ActionIcon>
                         <Space w="sm" />
                         <ActionIcon variant="filled" color="red" aria-label="Delete" onClick={() => handleDelete(item.id)}>

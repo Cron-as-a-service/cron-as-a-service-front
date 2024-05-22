@@ -19,22 +19,26 @@ import {
     useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconBook, IconChevronDown, IconCode, IconMoon, IconSun, } from '@tabler/icons-react';
+import { IconBook, IconCheck, IconChevronDown, IconCode, IconMoon, IconSun, } from '@tabler/icons-react';
 import '@mantine/core/styles.css';
 import classes from './HeaderMegaMenu.module.css';
 import cx from 'clsx';
 import { useAuth0 } from '@auth0/auth0-react';
+import { notifications } from '@mantine/notifications';
+import { useEffect } from 'react';
 
 const mockdata = [
     {
         icon: IconCode,
         title: 'Open source',
         description: 'Our project was totally open-source',
+        link: 'https://github.com/Cron-as-a-service'
     },
     {
         icon: IconBook,
         title: 'Documentation',
-        description: 'Visit the documentation to lean how our project works'
+        description: 'Visit the documentation to lean how our project works',
+        link: 'https://cron-as-a-service.gitbook.io/cron-as-a-service'
     }
 ];
 
@@ -43,10 +47,23 @@ export function HeaderMegaMenu() {
     const [linksOpened, {toggle: toggleLinks}] = useDisclosure(false);
     const theme = useMantineTheme();
     const {setColorScheme, colorScheme} = useMantineColorScheme();
-    const { loginWithRedirect, isAuthenticated } = useAuth0();
+    const { loginWithRedirect, isAuthenticated, user } = useAuth0();
+
+    useEffect(() => {
+        if(!user?.email_verified){
+            notifications.update({
+                color: 'red',
+                title: 'Please verify your mail',
+                message: 'You need to validate your account before',
+                icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
+                loading: false,
+                autoClose: 8000,
+            });
+        }
+    }, [user?.email_verified]); // Tableau de dépendances vide
 
     const links = mockdata.map((item) => (
-        <UnstyledButton className={classes.subLink} key={item.title}>
+        <UnstyledButton className={classes.subLink} key={item.title} onClick={() => window.open(item.link, '_blank')}>
             <Group wrap="nowrap" align="flex-start">
                 <ThemeIcon size={34} variant="default" radius="md">
                     <item.icon style={{width: rem(22), height: rem(22)}} color={theme.colors.blue[6]}/>
