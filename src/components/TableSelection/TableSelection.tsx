@@ -70,7 +70,7 @@ export function TableSelection() {
                     setData(tasks);
                 })
                 .catch((error) => {
-                    notifications.update({
+                    notifications.show({
                         color: 'red',
                         title: 'Impossible to get Cron tasks',
                         message: `Something went wrong, ${error.message}`,
@@ -100,8 +100,7 @@ export function TableSelection() {
     const handleDelete = (id: string) => {
         axios.delete(`${config.apiUrl}/task/${id}`)
             .then(() => {
-                notifications.update({
-                    id,
+                notifications.show({
                     color: 'teal',
                     title: 'Cron was deleted',
                     message: 'Everything is fine',
@@ -112,8 +111,7 @@ export function TableSelection() {
                 setData((currentData) => currentData.filter((task) => task.id !== id));
             })
             .catch((error) => {
-                notifications.update({
-                    id,
+                notifications.show({
                     color: 'red',
                     title: 'Cron wasn\'t delete',
                     message: `Something went wrong, ${error.message}`,
@@ -127,7 +125,7 @@ export function TableSelection() {
     const handleRunTask = (id: string) => {
         axios.get(`${config.apiUrl}/task/${id}/run`)
             .then(() => {
-                notifications.update({
+                notifications.show({
                     color: 'teal',
                     title: 'Cron was executed',
                     message: 'Task has been run successfully',
@@ -137,7 +135,7 @@ export function TableSelection() {
                 });
             })
             .catch((error) => {
-                notifications.update({
+                notifications.show({
                     color: 'red',
                     title: 'Cron wasn\'t executed',
                     message: `Something went wrong, ${error.message}`,

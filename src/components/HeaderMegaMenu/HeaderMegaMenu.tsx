@@ -51,7 +51,7 @@ export function HeaderMegaMenu() {
 
     useEffect(() => {
         if(user && !user?.email_verified){
-            notifications.update({
+            notifications.show({
                 color: 'red',
                 title: 'Please verify your mail',
                 message: 'You need to validate your account before',
