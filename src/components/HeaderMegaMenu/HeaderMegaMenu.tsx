@@ -124,10 +124,10 @@ export function HeaderMegaMenu() {
                                                 Get started
                                             </Text>
                                             <Text size="xs" c="dimmed">
-                                                Their food sources have decreased, and their numbers
+                                               Now you need to test it !
                                             </Text>
                                         </div>
-                                        <Button variant="default">Get started</Button>
+                                        <Button variant="default" onClick={() => window.open('https://cron-as-a-service.gitbook.io/cron-as-a-service', '_blank')}>Get started</Button>
                                     </Group>
                                 </div>
                             </HoverCard.Dropdown>

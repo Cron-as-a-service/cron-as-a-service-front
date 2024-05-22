@@ -125,7 +125,7 @@ export function TableSelection() {
     };
 
     const handleRunTask = (id: string) => {
-        axios.post(`${config.apiUrl}/task/${id}/run`)
+        axios.get(`${config.apiUrl}/task/${id}/run`)
             .then(() => {
                 notifications.update({
                     color: 'teal',
